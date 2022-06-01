@@ -49,7 +49,6 @@ Layer_1_1 = Dense(5,activation="tanh", kernel_constraint=NonPos(), bias_constrai
 Layer_1_2 = Dense(5,activation="tanh", kernel_constraint=NonPos())(InputLayer)
 mu0 = Dense(1, activation="linear", kernel_constraint=keras.constraints.NonNeg())(Layer_1_1)
 sigma = Dense(1, activation=lambda x: tf.nn.elu(x) + 1, kernel_constraint=keras.constraints.NonNeg())(Layer_1_2)
-slack = Dense(1, activation=lambda x: tf.nn.elu(x) + 1, kernel_constraint=keras.constraints.NonNeg())(Layer_1_1)
 merged = Concatenate(axis=1)([mu0,sigma])
 mu = Dense(1, activation="linear",kernel_constraint=keras.constraints.NonNeg())(merged)
 y_real = Input(shape=(1,))
